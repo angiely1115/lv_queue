@@ -25,7 +25,8 @@ public class TestDisruptor {
         disruptor.start();
         MyEventProduce ep = new MyEventProduce().setDisruptor(disruptor);
         CountDownLatch countDownLatch = ep.getCountDownLatch();
-        Executors.defaultThreadFactory();
+        new Thread(ep).start();
+        //Executors.defaultThreadFactory();
         countDownLatch.await();
         disruptor.shutdown();
         System.out.println("运行完毕");

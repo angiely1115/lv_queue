@@ -30,6 +30,7 @@ public class MyEventProduce implements Runnable {
             event.setName("name--" + i);
             event.setCountDownLatch(countDownLatch);
             disruptor.publishEvent(new MyEventTranslator(event));
+            countDownLatch.countDown();
         }
     }
 
