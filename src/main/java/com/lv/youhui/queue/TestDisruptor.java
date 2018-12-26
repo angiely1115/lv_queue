@@ -18,7 +18,8 @@ public class TestDisruptor {
         Disruptor<MyEvent> disruptor = new Disruptor<MyEvent>(new MyEventFactory(),
                 1024, Executors.defaultThreadFactory(),
                 ProducerType.SINGLE, new YieldingWaitStrategy());
-        disruptor.handleExceptionsWith(new MyHandlerException());
+        disruptor.setDefaultExceptionHandler(new MyHandlerException());
+        //事件依次处理
         disruptor.handleEventsWithWorkerPool(new Handler1())
                 .thenHandleEventsWithWorkerPool(new Handler11())
                 .thenHandleEventsWithWorkerPool(new Handler2());
@@ -30,6 +31,15 @@ public class TestDisruptor {
         countDownLatch.await();
         disruptor.shutdown();
         System.out.println("运行完毕");
+
+        long start2 = System.currentTimeMillis();
+        for (long i = 0; i < Integer.MAX_VALUE; i++) {
+            System.currentTimeMillis();
+        }
+        long end2 = System.currentTimeMillis();
+        System.out.println("currentTimeMillis Time:" + (end2 - start2) + "毫秒");
+
+
 
 //        log.debug("运行完毕");
     }

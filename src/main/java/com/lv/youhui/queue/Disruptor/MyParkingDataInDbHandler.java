@@ -13,7 +13,7 @@ public class MyParkingDataInDbHandler implements EventHandler<MyInParkingDataEve
     public void onEvent(MyInParkingDataEvent myInParkingDataEvent) throws Exception {  
         long threadId = Thread.currentThread().getId(); // 获取当前线程id  
         String carLicense = myInParkingDataEvent.getCarLicense(); // 获取车牌号  
-        System.out.println(String.format("Thread Id %s 保存 %s 到数据库中 ....", threadId, carLicense));  
+        System.out.println(String.format("时间 %s Thread Id %s 保存 %s 到数据库中 ....",System.currentTimeMillis(), threadId, carLicense));
     }  
   
     @Override  
